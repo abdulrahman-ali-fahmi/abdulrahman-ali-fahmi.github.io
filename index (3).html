@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AbdulRahman Ali • Data Analyst</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lucide-static@latest/font/lucide.css">
+  <style>
+    :root {
+      --primary: #00d9ff;
+      --secondary: #7c3aed;
+      --accent: #f97316;
+      --dark: #0a0e1a;
+      --darker: #050810;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    html { 
+      scroll-behavior: smooth; 
+      overflow-x: hidden;
+    }
+    
+    body { 
+      font-family: 'Sora', system-ui, sans-serif;
+      background: var(--darker);
+      color: #e2e8f0;
+      position: relative;
+      overflow-x: hidden;
+    }
+    
+    /* Animated Background */
+    .bg-animation {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      background: 
+        radial-gradient(circle at 20% 50%, rgba(124, 58, 237, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(0, 217, 255, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 40% 80%, rgba(249, 115, 22, 0.1) 0%, transparent 50%);
+      animation: bgShift 20s ease infinite;
+    }
+    
+    @keyframes bgShift {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      25% { transform: translate(5%, -5%) scale(1.05); }
+      50% { transform: translate(-5%, 5%) scale(0.95); }
+      75% { transform: translate(5%, 5%) scale(1.05); }
+    }
+    
+    .content-wrapper {
+      position: relative;
+      z-index: 1;
+    }
+    
+    /* Glassmorphism */
+    .glass {
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+    
+    .glass-strong {
+      background: rgba(10, 14, 26, 0.8);
+      backdrop-filter: blur(30px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+    
+    /* Typography */
+    .heading-font {
+      font-family: 'Sora', sans-serif;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+    
+    .mono-font {
+      font-family: 'Space Mono', monospace;
+    }
+    
+    /* Gradient Text */
+    .gradient-text {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 50%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradientShift 8s ease infinite;
+      background-size: 200% 200%;
+    }
+    
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+    
+    /* Cyber Grid */
+    .cyber-grid {
+      background-image: 
+        linear-gradient(rgba(0, 217, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 217, 255, 0.03) 1px, transparent 1px);
+      background-size: 50px 50px;
+      animation: gridMove 20s linear infinite;
+    }
+    
+    @keyframes gridMove {
+      0% { background-position: 0 0; }
+      100% { background-position: 50px 50px; }
+    }
+    
+    /* Neon Border */
+    .neon-border {
+      position: relative;
+      border: 2px solid transparent;
+      background: linear-gradient(var(--dark), var(--dark)) padding-box,
+                  linear-gradient(135deg, var(--primary), var(--secondary)) border-box;
+      box-shadow: 0 0 20px rgba(0, 217, 255, 0.3);
+    }
+    
+    /* Tool Card */
+    .tool-card {
+      position: relative;
+      padding: 2rem;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      transform-style: preserve-3d;
+    }
+    
+    .tool-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(0, 217, 255, 0.1), rgba(124, 58, 237, 0.1));
+      opacity: 0;
+      transition: opacity 0.4s;
+      border-radius: inherit;
+    }
+    
+    .tool-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 20px 60px rgba(0, 217, 255, 0.3);
+    }
+    
+    .tool-card:hover::before {
+      opacity: 1;
+    }
+    
+    .tool-icon {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+      filter: drop-shadow(0 0 10px rgba(0, 217, 255, 0.5));
+      transition: all 0.4s;
+    }
+    
+    .tool-card:hover .tool-icon {
+      filter: drop-shadow(0 0 20px rgba(0, 217, 255, 0.8));
+      transform: scale(1.1) rotateY(10deg);
+    }
+    
+    /* Section Styling */
+    .section {
+      padding: 8rem 0;
+      position: relative;
+    }
+    
+    .section-title {
+      font-size: 3rem;
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 1rem;
+      position: relative;
+      width: 100%;
+    }
+    
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+      border-radius: 2px;
+    }
+    
+    /* Avatar */
+    .avatar-container {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      margin: 0 auto 2rem;
+    }
+    
+    .avatar-container::before {
+      content: '';
+      position: absolute;
+      inset: -10px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+      border-radius: 50%;
+      animation: rotate 4s linear infinite;
+      z-index: -1;
+    }
+    
+    @keyframes rotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    .avatar-img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 5px solid var(--dark);
+    }
+    
+    /* Buttons */
+    .btn-primary {
+      position: relative;
+      padding: 1rem 3rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 50px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      cursor: pointer;
+      overflow: hidden;
+      transition: all 0.3s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: left 0.5s;
+    }
+    
+    .btn-primary:hover::before {
+      left: 100%;
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 40px rgba(0, 217, 255, 0.5);
+    }
+    
+    /* Cards */
+    .project-card {
+      position: relative;
+      overflow: hidden;
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .project-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, transparent 0%, rgba(0, 217, 255, 0.1) 100%);
+      opacity: 0;
+      transition: opacity 0.5s;
+    }
+    
+    .project-card:hover::after {
+      opacity: 1;
+    }
+    
+    .project-card:hover {
+      transform: translateY(-10px);
+      border-color: var(--primary);
+      box-shadow: 0 20px 60px rgba(0, 217, 255, 0.4);
+    }
+    
+    /* Timeline */
+    .timeline-item {
+      position: relative;
+      padding-left: 3rem;
+      padding-bottom: 3rem;
+    }
+    
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(180deg, var(--primary), var(--secondary));
+    }
+    
+    .timeline-dot {
+      position: absolute;
+      left: -8px;
+      top: 0;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--primary);
+      box-shadow: 0 0 20px var(--primary);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 20px var(--primary); }
+      50% { transform: scale(1.2); box-shadow: 0 0 30px var(--primary); }
+    }
+    
+    /* Testimonial */
+    .testimonial-card {
+      position: relative;
+      padding: 2.5rem;
+      border-left: 4px solid var(--primary);
+    }
+    
+    .quote-icon {
+      position: absolute;
+      top: -20px;
+      left: 20px;
+      font-size: 4rem;
+      opacity: 0.1;
+      color: var(--primary);
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .section-title {
+        font-size: 2rem;
+      }
+      
+      .section {
+        padding: 4rem 0;
+      }
+      
+      .avatar-container {
+        width: 150px;
+        height: 150px;
+      }
+    }
+    
+    /* Navbar - Fixed without reload effect */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(10, 14, 26, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(0, 217, 255, 0.2);
+      transition: transform 0.3s ease;
+    }
+    
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+    
+    ::-webkit-scrollbar-track {
+      background: var(--darker);
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, var(--primary), var(--secondary));
+      border-radius: 5px;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(180deg, var(--secondary), var(--accent));
+    }
+    
+    /* Badge */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .badge-primary {
+      background: rgba(0, 217, 255, 0.1);
+      color: var(--primary);
+      border-color: rgba(0, 217, 255, 0.3);
+    }
+    
+    .badge-secondary {
+      background: rgba(124, 58, 237, 0.1);
+      color: var(--secondary);
+      border-color: rgba(124, 58, 237, 0.3);
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-animation"></div>
+  <div class="cyber-grid" style="position: fixed; inset: 0; z-index: 0; opacity: 0.3;"></div>
+  
+  <div class="content-wrapper">
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+      <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+        <a href="#home" class="text-2xl font-bold gradient-text heading-font">
+          <i class="lucide lucide-activity"></i> AbdulRahman
+        </a>
+        <ul id="navLinks" class="hidden md:flex items-center gap-8 text-sm font-semibold"></ul>
+        <div class="flex items-center gap-4">
+          <button id="langToggle" class="px-4 py-2 glass rounded-full text-xs font-bold hover:border-cyan-400 transition-all mono-font">
+            <span class="en-text">عربي</span>
+            <span class="ar-text hidden">EN</span>
+          </button>
+          <button id="navBtn" class="md:hidden text-3xl">≡</button>
+        </div>
+      </div>
+      <div id="mobileMenu" class="md:hidden hidden px-6 pb-4 text-center space-y-2 glass-strong"></div>
+    </nav>
+
+    <!-- Hero -->
+    <section id="home" class="min-h-screen flex flex-col justify-center items-center text-center px-6 pt-32" data-aos="fade-up">
+      <div class="avatar-container" data-aos="zoom-in">
+        <img src="https://github.com/abdulrahman-ali-fahmi.png" alt="AbdulRahman Ali" class="avatar-img" />
+      </div>
+      
+      <h1 class="text-6xl md:text-8xl font-black gradient-text heading-font mb-4" data-aos="fade-up" data-aos-delay="100">
+        AbdulRahman Ali
+      </h1>
+      
+      <div class="flex flex-wrap justify-center gap-3 mb-6" data-aos="fade-up" data-aos-delay="200">
+        <span class="badge badge-primary"><i class="lucide lucide-bar-chart-3"></i> Data Analyst</span>
+        <span class="badge badge-secondary"><i class="lucide lucide-database"></i> CRM Specialist</span>
+      </div>
+      
+      <p id="heroSubtitle" class="text-xl md:text-2xl max-w-3xl text-slate-300 mb-8 leading-relaxed" data-aos="fade-up" data-aos-delay="300"></p>
+      
+      <div id="highlights" class="flex flex-wrap justify-center gap-6 mb-10 text-sm mono-font" data-aos="fade-up" data-aos-delay="400"></div>
+      
+      <a href="#contact" class="btn-primary" data-aos="fade-up" data-aos-delay="500">
+        <span id="ctaBtn"></span>
+      </a>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="section">
+      <div class="max-w-5xl mx-auto px-6">
+        <h2 id="aboutTitle" class="section-title heading-font" data-aos="fade-up">About</h2>
+        <p id="aboutText" class="text-center text-lg md:text-xl leading-relaxed mt-12 text-slate-300" data-aos="fade-up" data-aos-delay="100"></p>
+      </div>
+    </section>
+
+    <!-- Tools -->
+    <section id="tools" class="section glass-strong">
+      <div class="max-w-6xl mx-auto px-6">
+        <h2 id="toolsTitle" class="section-title heading-font" data-aos="fade-up">Tech Stack</h2>
+        <div id="toolsGrid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 mt-12"></div>
+      </div>
+    </section>
+
+    <!-- Experience -->
+    <section id="experience" class="section">
+      <div class="max-w-5xl mx-auto px-6">
+        <h2 id="experienceTitle" class="section-title heading-font" data-aos="fade-up">Experience</h2>
+        <div id="experienceList" class="mt-12 space-y-6"></div>
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects" class="section glass-strong">
+      <div class="max-w-6xl mx-auto px-6">
+        <h2 id="projectsTitle" class="section-title heading-font" data-aos="fade-up">Projects</h2>
+        <div id="projectGrid" class="grid md:grid-cols-2 gap-8 mt-12"></div>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonials" class="section">
+      <div class="max-w-5xl mx-auto px-6">
+        <h2 id="testimonialsTitle" class="section-title heading-font" data-aos="fade-up">Testimonials</h2>
+        <div id="testimonialsList" class="mt-12"></div>
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills" class="section glass-strong">
+      <div class="max-w-6xl mx-auto px-6">
+        <h2 id="skillsTitle" class="section-title heading-font" data-aos="fade-up">Skills</h2>
+        <div id="skillContainer" class="grid md:grid-cols-2 gap-8 mt-12"></div>
+      </div>
+    </section>
+
+    <!-- Education -->
+    <section id="education" class="section">
+      <div class="max-w-5xl mx-auto px-6">
+        <h2 id="educationTitle" class="section-title heading-font" data-aos="fade-up">Education</h2>
+        <div id="educationList" class="mt-12 glass neon-border rounded-2xl p-8 max-w-2xl mx-auto text-center" data-aos="zoom-in"></div>
+      </div>
+    </section>
+
+    <!-- Certifications -->
+    <section id="certifications" class="section glass-strong">
+      <div class="max-w-5xl mx-auto px-6">
+        <h2 id="certificationsTitle" class="section-title heading-font" data-aos="fade-up">Certifications</h2>
+        <ul id="certList" class="grid md:grid-cols-2 gap-6 mt-12"></ul>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="section">
+      <div class="max-w-5xl mx-auto px-6 text-center">
+        <h2 id="contactTitle" class="section-title heading-font" data-aos="fade-up">Contact</h2>
+        <p id="contactText" class="text-xl text-slate-300 mb-10 mt-12" data-aos="fade-up" data-aos-delay="100"></p>
+        <div id="contactInfo" class="flex flex-wrap justify-center items-center gap-6 mb-10 text-lg" data-aos="fade-up" data-aos-delay="200"></div>
+        <a id="downloadCV" href="#" class="btn-primary" data-aos="fade-up" data-aos-delay="300"></a>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-center py-8 text-sm text-slate-500 border-t border-slate-800 mono-font">
+      © <span id="year"></span> AbdulRahman Ali. All rights reserved.
+    </footer>
+  </div>
+
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init({ duration: 1000, offset: 100, once: true, easing: 'ease-out-cubic' });
+
+    const CV_LINK = "https://drive.google.com/uc?export=download&id=11_gX7nW9IbzJa11xqKWX4HP9XGyCXxLd";
+    const GH_USER = "abdulrahman-ali-fahmi";
+    
+    // Tool icons - Using base64 data URIs for uploaded images
+    const EXCEL_ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="; // placeholder
+    const TACTFUL_ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="; // placeholder
+    const CRM_8X_ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="; // placeholder
+    
+    const portfolioData = {
+      fullName: "AbdulRahman Ali",
+      avatar: `https://github.com/${GH_USER}.png`,
+      highlights: {
+        en: [
+          "⚡ 2+ Years Experience",
+          "📊 7 Power BI Dashboards",
+          "🎯 90% Data Accuracy"
+        ],
+        ar: [
+          "⚡ خبرة +2 سنة",
+          "📊 7 لوحات باور بي آي",
+          "🎯 دقة بيانات 90%"
+        ]
+      },
+      tools: [
+        { name: "Power BI", icon: "https://upload.wikimedia.org/wikipedia/commons/c/cf/New_Power_BI_Logo.svg" },
+        { name: "Excel", icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Microsoft_Office_Excel_%282025%E2%80%93present%29.svg/1280px-Microsoft_Office_Excel_%282025%E2%80%93present%29.svg.png" },
+        { name: "Looker Studio", icon: "https://www.svgrepo.com/show/354012/looker-icon.svg" },
+        { name: "Google Sheets", icon: "https://upload.wikimedia.org/wikipedia/commons/3/30/Google_Sheets_logo_%282014-2020%29.svg" },
+        { name: "8X CRM", icon: "https://fblgi.8worx.com/8x/assets/media/logos/new-logo.png" },
+        { name: "Tactful.ai", icon: "https://tactful.ai/wp-content/uploads/2024/07/t-favicon.png" }
+      ],
+      en: {
+        tagline: "Transforming complex data into clear, actionable insights that drive business growth",
+        cta: "Let's Connect",
+        nav: {
+          home: "Home",
+          about: "About",
+          tools: "Tech Stack",
+          experience: "Experience",
+          projects: "Projects",
+          testimonials: "Testimonials",
+          skills: "Skills",
+          education: "Education",
+          certifications: "Certifications",
+          contact: "Contact"
+        },
+        summary: "Data Analyst with 2+ years of experience transforming sales and operations data into actionable insights. Built 7 interactive Power BI dashboards adopted by 3+ departments, trained teams on CRM to achieve 90% data accuracy. Skilled in cross-functional collaboration, delivering PowerPoint reports and supporting Marketing and Customer Service teams.",
+        experience: [
+          {
+            role: "Data Analyst",
+            company: "Simplex CNC",
+            industry: "Manufacturing Industry",
+            period: "Oct 2023 - Present",
+            desc: "Monitor Sales Team performance against targets and maintain Power BI dashboards for real-time visibility. Support Sales, Marketing, and Customer Service by providing cross-functional insights and data-driven recommendations. Deliver weekly, monthly, and quarterly PowerPoint reports to stakeholders, focusing on sales targets and performance KPIs. Managed 8X CRM administration and workflow organization, ensuring high data integrity and efficient team usage."
+          },
+          {
+            role: "Reporting and Data Analyst",
+            company: "Areej AL Khaleej",
+            industry: "Car Rental Industry",
+            period: "Aug 2023 - Oct 2023",
+            desc: "Created reports to help with business decisions. Made reporting processes more efficient and improved data tracking."
+          }
+        ],
+        projects: [
+          {
+            name: "PwC Switzerland Power BI Virtual Case",
+            desc: "Comprehensive analysis covering Call Center operations, Customer Retention strategies, and Diversity & Inclusion metrics. Utilized Power Query to clean and validate 3 distinct datasets. Implemented DAX measures to track business KPIs. Key findings: 70% customer satisfaction rate, 25% customer churn, and 52% male vs 48% female representation in new hires.",
+            link: "https://github.com/abdulrahman-ali-fahmi/PwC-Switzerland-PowerBI-Virtual-Case-Experience/tree/main/Diversity%20%26%20Inclusion"
+          },
+          {
+            name: "TATA Online Retail Virtual Case",
+            desc: "Large-scale data analysis project processing 500,000+ rows of retail data using Excel. Identified significant revenue surge during Sep-Nov 2011 period. Conducted comparative analysis of top 10 countries by Revenue and Quantity metrics. Performed customer segmentation to identify top 10 high-value customers for targeted marketing strategies.",
+            link: "https://github.com/abdulrahman-ali-fahmi/Online-Retail-Virtual-Case-Experience-Powered-by-TATA"
+          }
+        ],
+        testimonials: [
+          {
+            name: "Aya Sayed",
+            role: "HR Business Partner @ Simplex CNC",
+            company: "Human Resources | HRBP | Talent Acquisition",
+            text: "Abdo is an outstanding professional with performance that always goes above expectations. He is smart, reliable, and genuinely enjoys helping others. He's very strong in data analysis and has a great ability to turn complex information into clear, simple insights with well-structured numbers. He makes even the hardest tasks easy to understand. Truly a valuable addition to any team.",
+            date: "February 2, 2026"
+          }
+        ],
+        skills: {
+          technical: {
+            title: "Technical Skills",
+            list: [
+              "MS Power BI (DataViz, Data Modeling, Power Query, DAX)",
+              "MS Excel (Power Pivot, Advanced Formulas, Pivot Tables, Dashboards)",
+              "Looker Studio & Google Sheets",
+              "PowerPoint & Data Presentation",
+              "8X CRM & Tactful.ai",
+              "SQL & Python (Fundamentals)"
+            ]
+          },
+          soft: {
+            title: "Professional Skills",
+            list: [
+              "Sales & Business Analysis",
+              "Reporting & Presentation",
+              "Data-Driven Decision Making",
+              "Attention to Detail",
+              "Stakeholder Management",
+              "Cross-Functional Collaboration"
+            ]
+          }
+        },
+        education: {
+          degree: "Bachelor of Commerce and Business Administration",
+          institution: "Helwan University",
+          year: "Jun 2021",
+          major: "Major: Management Information Systems (MIS)",
+          gpa: "GPA: 3.0/4.0"
+        },
+        certs: [
+          { name: "IBM Data Analyst Professional Certificate", issuer: "Coursera" },
+          { name: "Data Analysis Challenger Track", issuer: "Udacity" },
+          { name: "Digital Storytelling", issuer: "Edraak" }
+        ],
+        contactText: "Let's connect! Feel free to reach out via email, phone, or connect with me on LinkedIn and GitHub.",
+        download: "Download CV"
+      },
+      ar: {
+        tagline: "تحويل البيانات المعقدة إلى رؤى واضحة وقابلة للتنفيذ تدفع نمو الأعمال",
+        cta: "تواصل معي",
+        nav: {
+          home: "الرئيسية",
+          about: "نبذة",
+          tools: "الأدوات التقنية",
+          experience: "الخبرات",
+          projects: "المشاريع",
+          testimonials: "التوصيات",
+          skills: "المهارات",
+          education: "التعليم",
+          certifications: "الشهادات",
+          contact: "تواصل"
+        },
+        summary: "محلل بيانات ذو خبرة أكثر من سنتين في تحويل بيانات المبيعات والعمليات إلى رؤى قابلة للتنفيذ. قمت ببناء 7 لوحات معلومات تفاعلية باستخدام Power BI تم اعتمادها من قبل 3+ أقسام، ودربت الفرق على CRM لتحقيق دقة بيانات بنسبة 90%. ماهر في التعاون متعدد الوظائف وتقديم تقارير PowerPoint ودعم فرق التسويق وخدمة العملاء.",
+        experience: [
+          {
+            role: "محلل بيانات",
+            company: "Simplex CNC",
+            industry: "صناعة التصنيع",
+            period: "أكتوبر 2023 - حتى الآن",
+            desc: "مراقبة أداء فريق المبيعات مقابل الأهداف والحفاظ على لوحات معلومات Power BI للحصول على رؤية فورية. دعم المبيعات والتسويق وخدمة العملاء من خلال توفير رؤى متعددة الوظائف وتوصيات قائمة على البيانات. تقديم تقارير PowerPoint أسبوعية وشهرية وربع سنوية لأصحاب المصلحة. إدارة 8X CRM وتنظيم سير العمل لضمان نزاهة البيانات العالية."
+          },
+          {
+            role: "محلل تقارير وبيانات",
+            company: "Areej AL Khaleej",
+            industry: "صناعة تأجير السيارات",
+            period: "أغسطس 2023 - أكتوبر 2023",
+            desc: "إنشاء تقارير للمساعدة في قرارات العمل. تحسين عمليات التقارير وتتبع البيانات."
+          }
+        ],
+        projects: [
+          {
+            name: "مشروع PwC سويسرا Power BI الافتراضي",
+            desc: "تحليل شامل يغطي عمليات مركز الاتصال واستراتيجيات الاحتفاظ بالعملاء ومقاييس التنوع والشمول. استخدام Power Query لتنظيف والتحقق من 3 مجموعات بيانات مختلفة. تنفيذ مقاييس DAX لتتبع مؤشرات الأداء الرئيسية. النتائج الرئيسية: معدل رضا العملاء 70%، ومعدل فقدان العملاء 25%، وتمثيل 52% ذكور مقابل 48% إناث في التوظيفات الجديدة.",
+            link: "https://github.com/abdulrahman-ali-fahmi/PwC-Switzerland-PowerBI-Virtual-Case-Experience/tree/main/Diversity%20%26%20Inclusion"
+          },
+          {
+            name: "مشروع TATA للتجزئة عبر الإنترنت الافتراضي",
+            desc: "مشروع تحليل بيانات واسع النطاق يعالج أكثر من 500,000 صف من بيانات التجزئة باستخدام Excel. تحديد ارتفاع كبير في الإيرادات خلال فترة سبتمبر-نوفمبر 2011. إجراء تحليل مقارن لأفضل 10 دول من حيث الإيرادات والكمية. إجراء تجزئة العملاء لتحديد أفضل 10 عملاء ذوي قيمة عالية لاستراتيجيات التسويق المستهدفة.",
+            link: "https://github.com/abdulrahman-ali-fahmi/Online-Retail-Virtual-Case-Experience-Powered-by-TATA"
+          }
+        ],
+        testimonials: [
+          {
+            name: "آية سيد",
+            role: "شريك أعمال الموارد البشرية @ Simplex CNC",
+            company: "الموارد البشرية | HRBP | اكتساب المواهب",
+            text: "عبدو محترف متميز مع أداء يتجاوز التوقعات دائماً. إنه ذكي وموثوق ويستمتع حقاً بمساعدة الآخرين. لديه قوة كبيرة في تحليل البيانات ولديه قدرة رائعة على تحويل المعلومات المعقدة إلى رؤى واضحة وبسيطة بأرقام منظمة جيداً. يجعل حتى أصعب المهام سهلة الفهم. إضافة قيمة حقاً لأي فريق.",
+            date: "2 فبراير 2026"
+          }
+        ],
+        skills: {
+          technical: {
+            title: "المهارات التقنية",
+            list: [
+              "MS Power BI (تصور البيانات، نمذجة البيانات، Power Query، DAX)",
+              "MS Excel (Power Pivot، الصيغ المتقدمة، الجداول المحورية، لوحات المعلومات)",
+              "Looker Studio و Google Sheets",
+              "PowerPoint وعرض البيانات",
+              "8X CRM و Tactful.ai",
+              "SQL & Python (الأساسيات)"
+            ]
+          },
+          soft: {
+            title: "المهارات المهنية",
+            list: [
+              "تحليل المبيعات والأعمال",
+              "التقارير والعرض",
+              "اتخاذ القرارات المبنية على البيانات",
+              "الاهتمام بالتفاصيل",
+              "إدارة أصحاب المصلحة",
+              "التعاون متعدد الوظائف"
+            ]
+          }
+        },
+        education: {
+          degree: "بكالوريوس التجارة وإدارة الأعمال",
+          institution: "جامعة حلوان",
+          year: "يونيو 2021",
+          major: "التخصص: نظم المعلومات الإدارية (MIS)",
+          gpa: "المعدل: 3.0/4.0"
+        },
+        certs: [
+          { name: "شهادة محلل بيانات IBM الاحترافية", issuer: "Coursera" },
+          { name: "مسار تحليل البيانات المتقدم", issuer: "Udacity" },
+          { name: "سرد القصص الرقمي", issuer: "Edraak" }
+        ],
+        contactText: "دعنا نتواصل! لا تتردد في التواصل عبر البريد الإلكتروني أو الهاتف أو الاتصال بي على LinkedIn و GitHub.",
+        download: "تحميل السيرة الذاتية"
+      },
+      contact: {
+        phone: "+201066764885",
+        email: "abdulrahman.fhmy@gmail.com",
+        github: `https://github.com/${GH_USER}`,
+        linkedin: "https://www.linkedin.com/in/abdulrahman-ali-fahmi/"
+      }
+    };
+
+    let currentLang = "en";
+    const sections = ["home", "about", "tools", "experience", "projects", "testimonials", "skills", "education", "certifications", "contact"];
+    const $ = (selector) => document.querySelector(selector);
+
+    function updateContent() {
+      const langData = portfolioData[currentLang];
+      document.documentElement.lang = currentLang;
+      document.documentElement.dir = currentLang === "ar" ? "rtl" : "ltr";
+      $('.en-text').classList.toggle('hidden', currentLang === 'ar');
+      $('.ar-text').classList.toggle('hidden', currentLang === 'en');
+      
+      $('#heroSubtitle').textContent = langData.tagline;
+      
+      const highlights = $('#highlights');
+      highlights.innerHTML = '';
+      portfolioData.highlights[currentLang].forEach(item => {
+        highlights.innerHTML += `<div class="flex items-center gap-2 text-cyan-400">${item}</div>`;
+      });
+      
+      $('#ctaBtn').textContent = langData.cta;
+      
+      // Update section titles
+      $('#aboutTitle').textContent = langData.nav.about;
+      $('#toolsTitle').textContent = langData.nav.tools;
+      $('#experienceTitle').textContent = langData.nav.experience;
+      $('#projectsTitle').textContent = langData.nav.projects;
+      $('#testimonialsTitle').textContent = langData.nav.testimonials;
+      $('#skillsTitle').textContent = langData.nav.skills;
+      $('#educationTitle').textContent = langData.nav.education;
+      $('#certificationsTitle').textContent = langData.nav.certifications;
+      $('#contactTitle').textContent = langData.nav.contact;
+      
+      $('#aboutText').textContent = langData.summary;
+      
+      // Tools
+      const toolsGrid = $('#toolsGrid');
+      toolsGrid.innerHTML = '';
+      portfolioData.tools.forEach((tool, i) => {
+        toolsGrid.innerHTML += `
+          <div class="tool-card glass rounded-2xl text-center" data-aos="zoom-in" data-aos-delay="${i * 100}">
+            <img src="${tool.icon}" alt="${tool.name}" class="tool-icon mx-auto mb-4" onerror="this.src='https://via.placeholder.com/80?text=${tool.name}'">
+            <h3 class="font-bold text-lg text-slate-200">${tool.name}</h3>
+          </div>
+        `;
+      });
+      
+      // Experience
+      const experienceList = $('#experienceList');
+      experienceList.innerHTML = '';
+      langData.experience.forEach((exp, i) => {
+        experienceList.innerHTML += `
+          <div class="timeline-item" data-aos="fade-right" data-aos-delay="${i * 100}">
+            <div class="timeline-dot"></div>
+            <div class="glass rounded-xl p-6">
+              <h3 class="text-2xl font-bold text-cyan-400 mb-2 flex items-center gap-2">
+                <i class="lucide lucide-briefcase"></i> ${exp.role}
+              </h3>
+              <p class="text-lg font-semibold text-purple-400 mb-1">${exp.company}</p>
+              <p class="text-sm text-slate-400 mb-1">${exp.industry}</p>
+              <p class="text-xs text-slate-500 mb-4 mono-font flex items-center gap-2">
+                <i class="lucide lucide-calendar"></i> ${exp.period}
+              </p>
+              <p class="text-slate-300 leading-relaxed">${exp.desc}</p>
+            </div>
+          </div>
+        `;
+      });
+      
+      // Projects
+      const projectGrid = $('#projectGrid');
+      projectGrid.innerHTML = '';
+      langData.projects.forEach((proj, i) => {
+        projectGrid.innerHTML += `
+          <div class="project-card glass rounded-2xl p-8 border border-slate-700" data-aos="fade-up" data-aos-delay="${i * 100}">
+            <div class="flex items-center gap-3 mb-4">
+              <i class="lucide lucide-presentation text-cyan-400 text-3xl"></i>
+              <h3 class="text-2xl font-bold text-slate-100">${proj.name}</h3>
+            </div>
+            <p class="text-slate-300 leading-relaxed mb-6">${proj.desc}</p>
+            <a href="${proj.link}" target="_blank" class="inline-flex items-center gap-2 text-cyan-400 hover:text-cyan-300 font-bold transition-colors">
+              <i class="lucide lucide-github"></i>
+              ${currentLang === 'ar' ? 'عرض على GitHub' : 'View on GitHub'}
+              <i class="lucide lucide-arrow-right"></i>
+            </a>
+          </div>
+        `;
+      });
+      
+      // Testimonials
+      const testimonialsList = $('#testimonialsList');
+      testimonialsList.innerHTML = '';
+      langData.testimonials.forEach((t, i) => {
+        testimonialsList.innerHTML += `
+          <div class="testimonial-card glass rounded-2xl" data-aos="fade-up" data-aos-delay="${i * 100}">
+            <div class="quote-icon">"</div>
+            <div class="flex items-start gap-4 mb-6">
+              <div class="w-16 h-16 rounded-full bg-gradient-to-br from-cyan-400 to-purple-600 flex items-center justify-center text-white font-bold text-2xl flex-shrink-0">
+                ${t.name.charAt(0)}
+              </div>
+              <div>
+                <h3 class="text-xl font-bold text-slate-100 flex items-center gap-2">
+                  ${t.name}
+                  <i class="lucide lucide-linkedin text-blue-400"></i>
+                </h3>
+                <p class="text-cyan-400 font-semibold">${t.role}</p>
+                <p class="text-sm text-slate-400">${t.company}</p>
+              </div>
+            </div>
+            <p class="text-lg text-slate-300 leading-relaxed italic mb-4">${t.text}</p>
+            <p class="text-sm text-slate-500 text-right mono-font">${t.date}</p>
+          </div>
+        `;
+      });
+      
+      // Skills
+      const skillContainer = $('#skillContainer');
+      skillContainer.innerHTML = '';
+      ['technical', 'soft'].forEach((type, i) => {
+        const skillData = langData.skills[type];
+        skillContainer.innerHTML += `
+          <div class="glass rounded-2xl p-8" data-aos="zoom-in" data-aos-delay="${i * 100}">
+            <h3 class="text-2xl font-bold text-cyan-400 mb-6 flex items-center gap-2">
+              ${type === 'technical' ? '<i class="lucide lucide-code"></i>' : '<i class="lucide lucide-users"></i>'}
+              ${skillData.title}
+            </h3>
+            <ul class="space-y-3">
+              ${skillData.list.map(skill => `
+                <li class="flex items-start gap-3 text-slate-300">
+                  <i class="lucide lucide-check-circle text-cyan-400 mt-1 flex-shrink-0"></i>
+                  <span>${skill}</span>
+                </li>
+              `).join('')}
+            </ul>
+          </div>
+        `;
+      });
+      
+      // Education
+      const edu = langData.education;
+      $('#educationList').innerHTML = `
+        <i class="lucide lucide-graduation-cap text-6xl text-cyan-400 mb-4 mx-auto block"></i>
+        <h3 class="text-2xl font-bold text-slate-100 mb-3">${edu.degree}</h3>
+        <p class="text-lg text-purple-400 font-semibold mb-2">${edu.institution}</p>
+        <p class="text-slate-400 mb-2">${edu.year}</p>
+        <p class="text-sm text-slate-500">${edu.major}</p>
+        <p class="text-sm text-slate-500">${edu.gpa}</p>
+      `;
+      
+      // Certifications
+      const certList = $('#certList');
+      certList.innerHTML = '';
+      langData.certs.forEach((cert, i) => {
+        certList.innerHTML += `
+          <li class="glass rounded-xl p-6 flex items-center gap-4 border border-slate-700 hover:border-cyan-400 transition-colors" data-aos="fade-up" data-aos-delay="${i * 100}">
+            <i class="lucide lucide-award text-4xl text-cyan-400"></i>
+            <div>
+              <h3 class="text-lg font-bold text-slate-100">${cert.name}</h3>
+              <p class="text-sm text-slate-400">${cert.issuer}</p>
+            </div>
+          </li>
+        `;
+      });
+      
+      // Contact
+      $('#contactText').textContent = langData.contactText;
+      const contactInfo = $('#contactInfo');
+      contactInfo.innerHTML = `
+        <a href="tel:${portfolioData.contact.phone}" class="flex items-center gap-2 text-cyan-400 hover:text-cyan-300 transition-colors">
+          <i class="lucide lucide-phone"></i> ${portfolioData.contact.phone}
+        </a>
+        <span class="text-slate-600">•</span>
+        <a href="mailto:${portfolioData.contact.email}" class="flex items-center gap-2 text-cyan-400 hover:text-cyan-300 transition-colors">
+          <i class="lucide lucide-mail"></i> ${portfolioData.contact.email}
+        </a>
+        <span class="text-slate-600">•</span>
+        <a href="${portfolioData.contact.github}" target="_blank" class="flex items-center gap-2 text-cyan-400 hover:text-cyan-300 transition-colors">
+          <i class="lucide lucide-github"></i> GitHub
+        </a>
+        <span class="text-slate-600">•</span>
+        <a href="${portfolioData.contact.linkedin}" target="_blank" class="flex items-center gap-2 text-cyan-400 hover:text-cyan-300 transition-colors">
+          <i class="lucide lucide-linkedin"></i> LinkedIn
+        </a>
+      `;
+      $('#downloadCV').textContent = langData.download;
+      $('#downloadCV').href = CV_LINK;
+      
+      // Navigation
+      const navLinks = $('#navLinks');
+      const mobileMenu = $('#mobileMenu');
+      navLinks.innerHTML = '';
+      mobileMenu.innerHTML = '';
+      sections.forEach(id => {
+        const text = langData.nav[id];
+        const linkHTML = `<a href="#${id}" class="hover:text-cyan-400 transition-colors">${text}</a>`;
+        navLinks.innerHTML += linkHTML;
+        mobileMenu.innerHTML += `<a href="#${id}" class="block py-3 hover:text-cyan-400 transition-colors">${text}</a>`;
+      });
+    }
+
+    $('#langToggle').addEventListener('click', () => {
+      currentLang = currentLang === 'en' ? 'ar' : 'en';
+      updateContent();
+      AOS.refresh();
+    });
+
+    $('#navBtn').addEventListener('click', () => {
+      $('#mobileMenu').classList.toggle('hidden');
+    });
+
+    $('#mobileMenu').addEventListener('click', (e) => {
+      if (e.target.tagName === 'A') {
+        $('#mobileMenu').classList.add('hidden');
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      $('#year').textContent = new Date().getFullYear();
+      updateContent();
+    });
+  </script>
+</body>
+</html>
